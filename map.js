@@ -1,5 +1,5 @@
-// Import Mapbox as an ESM module
-import mapboxgl from 'https://cdn.jsdelivr.net/npm/mapbox-gl@2.15.0/+esm';
+// Import Mapbox as an ESM module (v3: needed for my Standard-based Studio style)
+import mapboxgl from 'https://cdn.jsdelivr.net/npm/mapbox-gl@3.9.4/+esm';
 
 // Check that Mapbox GL JS is loaded
 console.log('Mapbox GL JS Loaded:', mapboxgl);
@@ -11,7 +11,7 @@ mapboxgl.accessToken =
 // Initialize the map
 const map = new mapboxgl.Map({
   container: 'map', // ID of the div where the map will render
-  style: 'mapbox://styles/mapbox/streets-v12', // Map style
+  style: 'mapbox://styles/feliang/cmwf9bxy9008s01sm0tws55tj', // my custom style from Mapbox Studio
   center: [-71.09415, 42.36027], // [longitude, latitude], near MIT
   zoom: 12, // Initial zoom level
   minZoom: 5, // Minimum allowed zoom
@@ -23,6 +23,7 @@ const bikeLaneStyle = {
   'line-color': '#32D400', // bright green
   'line-width': 3,
   'line-opacity': 0.5,
+  'line-emissive-strength': 1, // ignore the style's dusk lighting so the green stays bright
 };
 
 // Wait until the map has finished loading before adding data to it
