@@ -14,3 +14,21 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
   border-radius: 8px; /* rounded corners */
 }
+
+/* Step 3: the SVG sits on top of the map and covers it exactly */
+#map svg {
+  position: absolute; /* lets it overlap the map (and z-index needs positioning) */
+  z-index: 1; /* above the map canvas */
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* clicks and drags pass through, so the map still pans */
+}
+
+/* Step 4: station circles. See-through so overlapping stations stay visible */
+#map svg circle {
+  fill: steelblue;
+  fill-opacity: 0.6;
+  stroke: white;
+  stroke-width: 1;
+  pointer-events: auto; /* the svg ignores the mouse, but circles need it for tooltips */
+}
