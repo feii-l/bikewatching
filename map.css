@@ -25,10 +25,81 @@ body {
 }
 
 /* Step 4: station circles. See-through so overlapping stations stay visible */
+/* Step 6: blue = more departures, orange = more arrivals, mixed = balanced.
+   Shared by the circles and the legend so they always match. */
+#map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
 #map svg circle {
-  fill: steelblue;
+  fill: var(--color);
   fill-opacity: 0.6;
   stroke: white;
   stroke-width: 1;
   pointer-events: auto; /* the svg ignores the mouse, but circles need it for tooltips */
+}
+
+/* Step 5.1: title on the left, time filter pushed to the right */
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  flex-wrap: wrap; /* the filter drops under the title on narrow screens */
+}
+
+header label {
+  margin-left: auto;
+}
+
+header input {
+  width: 15em;
+  accent-color: hotpink;
+}
+
+/* their own line, so the slider doesn't jump around as the text changes */
+header time,
+header em {
+  display: block;
+  text-align: right;
+}
+
+header em {
+  color: gray;
+  font-style: italic;
+}
+
+/* Step 6.2: legend under the map (design 2: separate swatches and labels) */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 1.5em; /* big gap BETWEEN items... */
+  margin-block: 1em;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.4em; /* ...small gap between a swatch and its own label */
+}
+
+.legend > div::before {
+  content: ''; /* an empty box, colored by --color */
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background: var(--color);
+}
+
+.legend-title {
+  color: gray;
+  font-size: 85%;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
