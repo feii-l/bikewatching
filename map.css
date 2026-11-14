@@ -5,28 +5,22 @@ body {
   width: 100%;
 }
 
-/* body is already a column flexbox (global.css), so flex: 1 lets the map
-   fill whatever height the heading and description leave over */
 #map {
   flex: 1;
   width: 100%;
   min-height: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
-  border-radius: 8px; /* rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-/* Step 3: the SVG sits on top of the map and covers it exactly */
 #map svg {
-  position: absolute; /* lets it overlap the map (and z-index needs positioning) */
-  z-index: 1; /* above the map canvas */
+  position: absolute;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* clicks and drags pass through, so the map still pans */
+  pointer-events: none;
 }
 
-/* Step 4: station circles. See-through so overlapping stations stay visible */
-/* Step 6: blue = more departures, orange = more arrivals, mixed = balanced.
-   Shared by the circles and the legend so they always match. */
 #map svg circle,
 .legend > div {
   --color-departures: steelblue;
@@ -43,15 +37,14 @@ body {
   fill-opacity: 0.6;
   stroke: white;
   stroke-width: 1;
-  pointer-events: auto; /* the svg ignores the mouse, but circles need it for tooltips */
+  pointer-events: auto;
 }
 
-/* Step 5.1: title on the left, time filter pushed to the right */
 header {
   display: flex;
   gap: 1em;
   align-items: baseline;
-  flex-wrap: wrap; /* the filter drops under the title on narrow screens */
+  flex-wrap: wrap;
 }
 
 header label {
@@ -63,7 +56,6 @@ header input {
   accent-color: hotpink;
 }
 
-/* their own line, so the slider doesn't jump around as the text changes */
 header time,
 header em {
   display: block;
@@ -75,22 +67,21 @@ header em {
   font-style: italic;
 }
 
-/* Step 6.2: legend under the map (design 2: separate swatches and labels) */
 .legend {
   display: flex;
   align-items: center;
-  gap: 1.5em; /* big gap BETWEEN items... */
+  gap: 1.5em;
   margin-block: 1em;
 }
 
 .legend > div {
   display: flex;
   align-items: center;
-  gap: 0.4em; /* ...small gap between a swatch and its own label */
+  gap: 0.4em;
 }
 
 .legend > div::before {
-  content: ''; /* an empty box, colored by --color */
+  content: '';
   width: 1em;
   height: 1em;
   border-radius: 50%;
